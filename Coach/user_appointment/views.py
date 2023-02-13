@@ -1,9 +1,10 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Appointment
 from user_appointment.forms import CustomUserCreationForm
+from datetime import datetime, timedelta
 
 def home(request):
     return render(request, 'user_appointment/home.html')
@@ -36,14 +37,72 @@ def signup(request):
 @login_required
 
 def prendre_rdv(request):
+    valid_hours = {
+        'monday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
+        'tuesday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
+        'wednesday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
+        'thursday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
+        'friday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
+    }
     if request.method == 'POST':
         # Récupération des données du formulaire
-        date = request.POST.get('date')
+        user = request.user
+        first_name = user.first_name
+        last_name = user.last_name
+        email = user.email
+        date_str = request.POST.get('date')
+        date = datetime.fromisoformat(date_str)
+        hour = date.time().hour
+        minute = date.time().minute
+        weekday = date.weekday()
+        # Vérification que le jour est compris entre lundi et vendredi
+        if weekday < 0 or weekday > 4:
+            return render(request, 'prendre_rdv.html', {'error_message': 'Vous pouvez prendre rendez-vous uniquement du lundi au vendredi'})
+        # Vérification de la validité de l'heure
+        if (hour, minute) not in valid_hours[date.strftime('%A').lower()]:
+            return render(request, 'prendre_rdv.html', {'error_message': 'Cette heure n\'est pas valide'})
+        # Vérification de la disponibilité de l'heure
+        time_with_hour_minute = date.replace(hour=hour, minute=minute)
+        end_time = time_with_hour_minute + timedelta(minutes=10)
+        if Appointment.objects.filter(date__range=[time_with_hour_minute, end_time]).exists():
+            return render(request, 'prendre_rdv.html', {'error_message': 'Cette heure est déjà prise'})
         # Création du rendez-vous
         appointment = Appointment.objects.create(
-            user=request.user,
-            date=date,
-            
+            user=user,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            date=time_with_hour_minute,
+            duree=10
         )
-        return redirect('calendar')
-    return render(request, 'perndre_rdv.html')
+
+        return redirect('home')
+    # Affichage du formulaire de prise de rendez-vous
+    return render(request, 'prendre_rdv.html', {'valid_hours': valid_hours})
+
+def rdv_admin(request):
+    appointments = Appointment.objects.all()
+    return render(request, 'rdv_admin.html', {'appointments': appointments})
+
+def mes_rdv(request):
+    rdvs = Appointment.objects.filter(user=request.user)
+    return render(request, 'mes_rdv.html', {'rdvs': rdvs})
+
+
+def comment(request, appointment_id):
+    if request.method == 'POST':
+        appointment = get_object_or_404(Appointment, id=appointment_id)
+        comment = request.POST.get('comment')
+        appointment.comment = comment
+        appointment.comment_author = request.user
+        appointment.save()
+        message = "Le commentaire a été ajouté avec succès."
+    else:
+        message = "Une erreur s'est produite lors de l'ajout du commentaire."
+    
+    appointments = Appointment.objects.all()
+    context = {
+        'appointments': appointments,
+        'message': message,
+    }
+    return render(request, 'rdv_admin.html', context)

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from user_appointment import views
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 
 app_name = 'user_appointement'
 
@@ -26,4 +26,8 @@ urlpatterns = [
     path('signup/', views.signup, name='inscription'),
     path('prendre_rdv/', views.prendre_rdv, name='prendre_rdv'),
     path('', views.home, name='home'),
+    path('mes_rdv/', views.mes_rdv, name='mes_rdv'),
+    path('rdv_admin/', views.rdv_admin, name='rdv_admin'),
+     path('comment/<int:appointment_id>/', views.comment, name='add_comment')
+    
 ]

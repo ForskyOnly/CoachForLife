@@ -1,0 +1,18 @@
+
+{% block content %}
+  <h1>Mes rendez-vous</h1>
+  {% if rdvs %}
+    <ul>
+    {% for rdv in rdvs %}
+      <li>{{ rdv.date|date:"SHORT" }} - {{ rdv.first_name }} {{ rdv.last_name }} ({{ rdv.email }})</li>
+      <form method="post" action="{% url 'add_comment' rdv.id %}">
+        {% csrf_token %}
+        <textarea name="comment" placeholder="Ajouter un commentaire"></textarea>
+        <input type="submit" value="Enregistrer">
+      </form>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Aucun rendez-vous à afficher.</p>
+  {% endif %}
+{% endblock %}
