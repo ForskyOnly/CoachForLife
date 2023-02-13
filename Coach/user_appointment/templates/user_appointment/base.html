@@ -1,0 +1,59 @@
+{% load static %}
+<html>
+    <head>
+
+        <title>CoachForLife</title>
+        <link rel="stylesheet" href="{% static "reset.css" %}" />
+        <link rel="stylesheet" href="{% static "style.css" %}" />
+       
+        
+
+    </head>
+
+    <header>
+        
+        <nav>
+            <ul>
+                <li>
+            </ul>
+            <h1 class="coach"><a href="/">CoachForLife</a></h1>
+        </nav>  
+
+        <div class="block1">
+            <div class="left">
+                <h1>Decouvrez <br> La Meilleur Version<br> De <span>Vous Même</span></h1>
+            </div>  
+
+            <div class="right">
+                <figure>
+                    <img  src="{% static "7.png" %}" alt="">
+                </figure>
+            </div> 
+        </div>
+
+    </header>
+
+    <body>
+
+        {%block login %}
+        {%endblock login %}
+
+        {%block sign_up %}
+        {%endblock sign_up %}
+
+        {% block home %}
+        {% endblock home %}
+
+        {% block form_rdv %}
+        {% endblock form_rdv %}
+        
+        {% block rdv %}
+        {% endblock rdv %}
+
+    </body>
+
+    <footer>
+
+    </footer>
+
+</html>
