@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block appointment %}
+{% block prendre_rdv %}
+
   <h1>Prendre rendez-vous</h1>
   {% if error_message %}
     <p>{{ error_message }}</p>
@@ -12,4 +13,5 @@
     <br>
     <input type="submit" value="Prendre rendez-vous">
   </form>
+
 {% endblock %}

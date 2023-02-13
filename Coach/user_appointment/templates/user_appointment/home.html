@@ -1,21 +1,8 @@
 {% extends 'base.html' %}
 
-{% block index %}
+{% block home %}
 
         
-
         
-{% block content %}
-<h2>Connexion</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Se connecter</button>
-</form>
-{% endblock %}
-
-        
-
-        
-{% endblock index %}
+{% endblock home %}
             

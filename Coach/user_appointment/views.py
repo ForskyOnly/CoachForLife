@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Appointment
 from user_appointment.forms import CustomUserCreationForm
 from datetime import datetime, timedelta
+from django.contrib.auth.decorators import user_passes_test
 
 def home(request):
     return render(request, 'user_appointment/home.html')
@@ -24,7 +25,6 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            # définir des informations supplémentaires pour l'utilisateur ici
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
             user.email = form.cleaned_data.get('email')
@@ -35,7 +35,6 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 @login_required
-
 def prendre_rdv(request):
     valid_hours = {
         'monday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
@@ -80,6 +79,7 @@ def prendre_rdv(request):
     # Affichage du formulaire de prise de rendez-vous
     return render(request, 'prendre_rdv.html', {'valid_hours': valid_hours})
 
+@user_passes_test(lambda user: user.is_superuser)
 def rdv_admin(request):
     appointments = Appointment.objects.all()
     return render(request, 'rdv_admin.html', {'appointments': appointments})

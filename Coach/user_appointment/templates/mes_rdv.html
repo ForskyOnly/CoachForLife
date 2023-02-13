@@ -1,10 +1,14 @@
+{% extends 'base.html' %}
 
-{% block content %}
+
+{% block mes_rdv %}
+
   <h1>Mes rendez-vous</h1>
   {% if rdvs %}
     <ul>
     {% for rdv in rdvs %}
-      <li>{{ rdv.date|date:"SHORT" }} - {{ rdv.first_name }} {{ rdv.last_name }} ({{ rdv.email }})</li>
+    <h3> Bonjour {{ rdv.first_name }} {{ rdv.last_name }} , votre prochain rendez-vous est le :</h3>
+      <li>{{ rdv.date|date:"d/m/Y H:i" }} - </li>
       <form method="post" action="{% url 'add_comment' rdv.id %}">
         {% csrf_token %}
         <textarea name="comment" placeholder="Ajouter un commentaire"></textarea>
@@ -15,4 +19,5 @@
   {% else %}
     <p>Aucun rendez-vous à afficher.</p>
   {% endif %}
+
 {% endblock %}
