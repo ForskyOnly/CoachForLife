@@ -1,23 +1,33 @@
 {% extends 'base.html' %}
 
 
-{% block mes_rdv %}
+  {% block mes_rdv %}
 
-  <h1>Mes rendez-vous</h1>
-  {% if rdvs %}
-    <ul>
-    {% for rdv in rdvs %}
-    <h3> Bonjour {{ rdv.first_name }} {{ rdv.last_name }} , votre prochain rendez-vous est le :</h3>
-      <li>{{ rdv.date|date:"d/m/Y H:i" }} - </li>
-      <form method="post" action="{% url 'add_comment' rdv.id %}">
-        {% csrf_token %}
-        <textarea name="comment" placeholder="Ajouter un commentaire"></textarea>
-        <input type="submit" value="Enregistrer">
-      </form>
-    {% endfor %}
-    </ul>
-  {% else %}
-    <p>Aucun rendez-vous à afficher.</p>
-  {% endif %}
+    <h1>Mes rendez-vous</h1>
 
-{% endblock %}
+    {% if user.is_authenticated %}
+      <h2>Bonjour {{ user.first_name }} {{ user.last_name }} !</h2>
+    {% endif %} 
+
+      
+
+        <ul>  
+                <li> {% if rdvs %} 
+                     {% for rdv in rdvs %} 
+                     {{ rdv.date|date:"d/m/Y H:i" }} 
+                </li>
+                <form method="post" action="{% url 'add_comment' rdv.id %}">             
+                  {% csrf_token %}
+                  <textarea name="comment" placeholder="Ajouter un commentaire"></textarea>
+                  <input type="submit" value="Enregistrer">
+                </form>
+            
+        </ul> {% endfor %}
+
+          {% else %}
+            <p>Vous n'avez pas de rendez-vous </p>
+            <p><a href="{% url 'prendre_rdv' %}">Prendre rendez-vous</a></p>
+
+      {% endif %}
+
+  {% endblock %}

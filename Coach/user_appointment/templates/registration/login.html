@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 
-{% block login %}
+{% block head_login %}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+{% endblock %}
 
-  <h2>Connexion</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Se connecter</button>
-  </form>
-  
-{% endblock login %}
+
+<body>
+  {% block login %}
+  <div class="container">
+      <h2>L'ouverture des chakras passe par plusieurs méthodes :
+      la relaxation, la méditation, des exercices de yoga...
+      Mais avant tout :<span> La Connexion </span></h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Se connecter</button>
+      </form>
+  </div>    
+  {% endblock %}
+</body>

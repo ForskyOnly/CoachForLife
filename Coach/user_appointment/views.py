@@ -36,13 +36,6 @@ def signup(request):
 
 @login_required
 def prendre_rdv(request):
-    valid_hours = {
-        'monday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
-        'tuesday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
-        'wednesday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
-        'thursday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
-        'friday': [(9, 0), (9, 30), (10, 0), (10, 30), (11, 0), (11, 30), (13, 30), (14, 0), (14, 30), (15, 0), (15, 30), (16, 0), (16, 30)],
-    }
     if request.method == 'POST':
         # Récupération des données du formulaire
         user = request.user
@@ -58,7 +51,7 @@ def prendre_rdv(request):
         if weekday < 0 or weekday > 4:
             return render(request, 'prendre_rdv.html', {'error_message': 'Vous pouvez prendre rendez-vous uniquement du lundi au vendredi'})
         # Vérification de la validité de l'heure
-        if (hour, minute) not in valid_hours[date.strftime('%A').lower()]:
+        if not ((9 <= hour < 12 and minute == 0) or (hour == 12 and minute == 30) or (13 <= hour < 17)):
             return render(request, 'prendre_rdv.html', {'error_message': 'Cette heure n\'est pas valide'})
         # Vérification de la disponibilité de l'heure
         time_with_hour_minute = date.replace(hour=hour, minute=minute)
@@ -72,12 +65,12 @@ def prendre_rdv(request):
             last_name=last_name,
             email=email,
             date=time_with_hour_minute,
-            duree=10
+            duree=30
         )
 
         return redirect('home')
     # Affichage du formulaire de prise de rendez-vous
-    return render(request, 'prendre_rdv.html', {'valid_hours': valid_hours})
+    return render(request, 'prendre_rdv.html')
 
 @user_passes_test(lambda user: user.is_superuser)
 def rdv_admin(request):
