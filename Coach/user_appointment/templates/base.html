@@ -8,9 +8,17 @@
 
         {% block head_login %}
         {% endblock %}
+
         {% block head_signup %}
         {% endblock %}
+
         {% block prendre_rdv_head %}
+        {% endblock %}
+
+        {% block head_mes_rdv%}
+        {% endblock %}
+
+        {% block head_rdv_admin%}
         {% endblock %}
 
     </head>
@@ -19,9 +27,13 @@
         
         <nav>
             <ul>
-                <li>{% if request.user.is_authenticated %}
-                    <a href="{% url 'mes_rdv' %}">Mes rendez-vous</a>
-                  {% endif %}
+                <li>
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'rdv_admin' %}">(Admin RDV)   </a>
+                    {% endif %} 
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'mes_rdv' %}">Mes rendez-vous</a>
+                    {% endif %}
                   </li>
                 <li>{% if request.user.is_authenticated %}
                     <a href="{% url 'prendre_rdv' %}">Prendre rendez-vous</a>
@@ -39,7 +51,7 @@
                 {% endif %}
                     </li>
             </ul>
-            <h1 class="coach"><a href="/">CoachForLife</a></h1>
+            <h1 class="coach"><a href="/">→ CoachForLife ←</a></h1>
         </nav>  
 
         <div class="block1">

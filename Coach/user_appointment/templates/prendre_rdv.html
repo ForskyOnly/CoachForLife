@@ -7,20 +7,20 @@
 {% endblock %}
 
 {% block prendre_rdv %}
-<body>
-  <div id="content">
-      <h2>Faites le premier pas <br>
-          prenez un <span>Rendez-Vous*<span> </h2>
-      <p>* Du lundi au vendredi de 9:00 à 12:30 et de 13:30 à 17:00</p>  
-      {% if error_message %}
-        <p>{{ error_message }}</p>
-      {% endif %}
-      <form method="post">
-        {% csrf_token %}
-          <label for="date">Choisissez la date et heure :</label>
-          <input type="datetime-local" id="date" name="date" min="{{ datetime.now|date:'Y-m-d' }}T09:00" max="{{ datetime.now|date:'Y-m-d' }}T17:00"><br>
-          <input type="submit" value="Prendre rendez-vous">
-      </form>
-  </div>
-</body>
+  <body>
+    <div id="content">
+        <h2>Faites le premier pas <br>
+            prenez un <span>Rendez-Vous*<span> </h2>
+        <p>* Du lundi au vendredi de 9:00 à 12:30 et de 13:30 à 17:00</p>  
+        {% if error_message %}
+          <p>{{ error_message }}</p>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+            <label for="date">Choisissez la date et heure :</label>
+            <input type="datetime-local" id="date" name="date" min="{{ datetime.now|date:'Y-m-d' }}T09:00" max="{{ datetime.now|date:'Y-m-d' }}T17:00"><br>
+            <input type="submit" value="Prendre rendez-vous">
+        </form>
+    </div>
+  </body>
 {% endblock %}

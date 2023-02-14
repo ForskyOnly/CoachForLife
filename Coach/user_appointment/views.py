@@ -37,7 +37,6 @@ def signup(request):
 @login_required
 def prendre_rdv(request):
     if request.method == 'POST':
-        # Récupération des données du formulaire
         user = request.user
         first_name = user.first_name
         last_name = user.last_name
@@ -47,18 +46,14 @@ def prendre_rdv(request):
         hour = date.time().hour
         minute = date.time().minute
         weekday = date.weekday()
-        # Vérification que le jour est compris entre lundi et vendredi
         if weekday < 0 or weekday > 4:
             return render(request, 'prendre_rdv.html', {'error_message': 'Vous pouvez prendre rendez-vous uniquement du lundi au vendredi'})
-        # Vérification de la validité de l'heure
         if not ((9 <= hour < 12 and minute == 0) or (hour == 12 and minute == 30) or (13 <= hour < 17)):
             return render(request, 'prendre_rdv.html', {'error_message': 'Cette heure n\'est pas valide'})
-        # Vérification de la disponibilité de l'heure
         time_with_hour_minute = date.replace(hour=hour, minute=minute)
         end_time = time_with_hour_minute + timedelta(minutes=10)
         if Appointment.objects.filter(date__range=[time_with_hour_minute, end_time]).exists():
             return render(request, 'prendre_rdv.html', {'error_message': 'Cette heure est déjà prise'})
-        # Création du rendez-vous
         appointment = Appointment.objects.create(
             user=user,
             first_name=first_name,
@@ -68,8 +63,7 @@ def prendre_rdv(request):
             duree=30
         )
 
-        return redirect('home')
-    # Affichage du formulaire de prise de rendez-vous
+        return redirect('mes_rdv')
     return render(request, 'prendre_rdv.html')
 
 @user_passes_test(lambda user: user.is_superuser)

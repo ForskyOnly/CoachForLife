@@ -1,20 +1,43 @@
 {% extends 'base.html' %}
 
+{% block head_rdv_admin%}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'rdv_admin.css' %}">
+{% endblock %}
 
 {% block rdv_admin %}
-
-{% for appointment in appointments %}
-    <div>
-        <p>Nom : {{ appointment.user.first_name }} {{ appointment.user.last_name }}</p>
-        <p>Email : {{ appointment.user.email }}</p>
-        <p>Date : {{ appointment.date }}</p>
-        <p>Commentaire : {{ appointment.comment }}</p>
-        <form method="post" action="{% url 'add_comment' appointment.id %}">
-            {% csrf_token %}
-            <input type="text" name="comment" placeholder="Ajouter un commentaire">
-            <input type="submit" value="Ajouter un commentaire">
-        </form>
+<body>
+    <div class="container">
+        <h3 class="rdvv"> Vos Prochains <span>Rendez-Vous</span><h3>
+        <table>
+        <thead>
+            <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Commentaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+            <td>{{ appointment.user.first_name }} {{ appointment.user.last_name }}</td>
+            <td>{{ appointment.user.email }}</td>
+            <td>{{ appointment.date }}</td>
+            <td>
+                <form method="post" action="{% url 'add_comment' appointment.id %}">
+                {% csrf_token %}
+                <textarea name="comment" placeholder="Ajouter un commentaire"></textarea><br>
+                <div class="submit-button">
+                  <input type="submit" value="Ajouter un commentaire">
+                </div>
+                </form>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
     </div>
-{% endfor %}
-
+</body>    
 {% endblock rdv_admin %}
