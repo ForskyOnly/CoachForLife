@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block head_home%}
+
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+
+{% endblock %}
+
+
+{% block home %}
+
+<body>
+    <div class="container">
+        
+        <h2>Bienvenue sur <span>CoachForLife</span></h2>
+        
+        <section id="presentation">
+        <h3>À propos du Coach :</h3>
+        <p>
+            "En tant que coach en développement personnel spécialisé dans la méditation, le yoga et l'art-thérapie, 
+            je suis dédié à aider mes clients à trouver un équilibre intérieur et extérieur. J'offre des séances individuelles ou en groupe, 
+            dans un environnement sûr et accueillant, où mes clients peuvent apprendre à se connecter avec leur corps, leur esprit et leur âme. 
+            Je crois que la pratique régulière de la méditation, du yoga et de l'art-thérapie peut améliorer la qualité de vie, aider à réduire le stress et l'anxiété, 
+            ainsi qu'à développer la créativité et l'estime de soi. Avec mes compétences et mon expérience, je suis prêt à guider mes clients vers leur propre croissance 
+            personnelle et leur bien-être."
+        </p>
+        </section>
+
+        <section id="competences">
+        <h2>Mes compétences :</h2>
+        <ul>
+            <li><a href="#meditation">Méditation guidée</a></li>
+            <li><a href="#yoga">Yoga personnalisé</a></li>
+            <li><a href="#art">Ateliers d'art-thérapie</a></li>
+          </ul>
+        </section>
+
+        <article id="meditation">
+       
+            <p><span>LA MEDITATION :</span>
+                Spécialisé dans la méditation, je suis convaincu de l'impact positif de cette pratique sur la santé mentale
+                et physique de mes clients. Je crois que la méditation est un outil puissant pour développer la résilience émotionnelle, la concentration, la clarté 
+                mentale et la pleine conscience.<br>
+
+                Je suis passionné par l'enseignement de différentes techniques de méditation, notamment la méditation guidée, la méditation Vipassana, la méditation 
+                transcendantale, la méditation de la pleine conscience et la méditation des chakras. Mon objectif est d'aider mes clients à trouver une technique de 
+                méditation qui leur convient le mieux et de les accompagner dans leur pratique afin qu'ils puissent en tirer le meilleur parti.<br>
+
+                Je suis également convaincu de l'importance de la méditation dans la gestion du stress et de l'anxiété, et je suis spécialisé dans la création de 
+                programmes personnalisés pour aider mes clients à surmonter ces défis. Grâce à mes connaissances et mon expérience, je suis en mesure de guider mes 
+                clients dans leur pratique de la méditation, de les aider à surmonter les obstacles qui peuvent survenir et de les encourager à intégrer la méditation
+                dans leur vie quotidienne.<br>
+            </p>
+
+            <figure>
+                <img src="{% static '3.png' %}" alt="Image de meditation style peinture abstrait">
+            </figure>
+
+        </article>
+
+        <article id='yoga'>
+        
+            <p><span>LE YOGA :</span>
+                Passionné par cette pratique millénaire qui permet d'améliorer la santé mentale et physique de mes clients. Mon objectif est d'aider mes clients à trouver
+                l'équilibre intérieur et la paix intérieure grâce à des postures de yoga.<br>
+
+                En travaillant avec moi, vous apprendrez à développer une pratique régulière de yoga qui peut améliorer votre souplesse, votre force et votre équilibre physique. 
+                Mais ce n'est pas tout : vous apprendrez également à cultiver la pleine conscience et la conscience de soi à travers cette pratique. <br>
+
+                Le yoga est une pratique  qui peut aider à guérir le corps, l'esprit et l'âme. Avec mes années d'expérience dans l'enseignement du yoga, je suis en mesure 
+                de créer des programmes personnalisés pour répondre aux besoins de mes clients, qu'ils soient débutants ou avancés. <br>
+
+                Mon approche du yoga est centrée sur l'individualité de chacun, et j'encourage chacun à pratiquer l'auto-compassion et la bienveillance envers eux-mêmes. 
+                En travaillant avec moi, vous apprendrez à développer une pratique de yoga qui convient à votre corps et à votre esprit, et qui peut vous aider à atteindre vos 
+                objectifs de bien-être à long terme. <br>
+
+                En résumé, je suis passionné de yoga et je peut vous aider à cultiver la pleine conscience et la conscience de soi à travers la pratique du yoga. 
+                Avec mon approche centrée sur l'individualité, mes programmes personnalisés et mes années d'expérience, je suis prêt à vous aider à atteindre vos objectifs.
+            </p>
+
+            <figure>
+                <img src="{% static '6.png' %}" alt="Image de yoga style peinture abstrait">
+            </figure>
+
+
+        </article>
+
+        <article id='art'>
+            <p><span>L'ART-THÉRAPIE :</span>
+                Je suis passionné par l'utilisation de l'art comme moyen de guérison et de croissance personnelle. Je crois que chacun possède une capacité créative innée
+                qui peut être utilisée pour explorer les émotions, les pensées et les expériences de la vie. <br>
+
+                En travaillant avec mes clients, j'utilise une variété de techniques artistiques, telles que la peinture, le dessin, la sculpture et la photographie, 
+                pour les aider à exprimer leur créativité et à accéder à leur moi intérieur. J'aide mes clients à explorer leurs émotions et leurs expériences de vie à
+                travers l'art, à identifier les modèles de pensée et de comportement qui peuvent les limiter, et à trouver des moyens créatifs de les surmonter. <br>
+
+                Je crois que l'art-thérapie est une méthode puissante pour la guérison, le développement personnel et la découverte de soi, et je suis fier de partager 
+                cette passion avec mes clients.
+            </p>
+            <figure>
+                <img src="{% static '5.png' %}" alt="peinture abstrait">
+            </figure>
+
+        </article>
+    </div>
+
+  </body>
+        
+{% endblock home %}
+            

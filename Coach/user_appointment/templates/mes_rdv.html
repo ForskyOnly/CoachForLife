@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head_mes_rdv%}
+    {{ block.super }}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'mes_rdv.css' %}">
+{% endblock %}
+
+
+{% block mes_rdv %}
+  <body>
+    <div class="container">
+    
+        <h2>Bonjour <span>{{ user.first_name }} {{ user.last_name }} !</span> <br>Vos prochains rendez vous :</h2>
+    
+        {% if rdvs %}
+        <table>
+          <thead>
+            <tr>
+              <th>Date et heure</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for rdv in rdvs %}
+            <tr>
+              <td>{{ rdv.date|date:"d/m/Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>Vous n'avez pas de rendez-vous </p>
+        {% endif %}
+
+    </div>
+  </body>
+{% endblock %}
