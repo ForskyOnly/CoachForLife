@@ -17,6 +17,9 @@ class LogoutView(LogoutView):
     template_name = 'logout.html'
 
 def signup(request):
+    """
+    Permet aux utilisateurs de s'inscrire et crée un nouvel utilisateur.
+    """
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -36,6 +39,10 @@ def signup(request):
 
 @login_required
 def prendre_rdv(request):
+    """
+    Permet aux utilisateurs connectés de prendre un rendez-vous en utilisant un formulaire. si l'horraire est valide 
+    et disponile un rendez-vous est crée
+    """
     if request.method == 'POST':
         user = request.user
         first_name = user.first_name
@@ -68,6 +75,9 @@ def prendre_rdv(request):
 
 @user_passes_test(lambda user: user.is_superuser)
 def rdv_admin(request):
+    """
+    Permet à l'administrateur de voir tous les rendez-vous et de commenter un rendez-vous spécifique.
+    """
     appointments = Appointment.objects.all()
     if request.method == 'POST':
         appointment_id = request.POST.get('appointment_id')
@@ -80,12 +90,18 @@ def rdv_admin(request):
     return render(request, 'rdv_admin.html', {'appointments': appointments})
 
 def mes_rdv(request):
+    """
+    Affiche les rendez-vous des utilisateurs connectés.
+    """
     rdvs = Appointment.objects.filter(user=request.user)
     return render(request, 'mes_rdv.html', {'rdvs': rdvs})
 
 
 @user_passes_test(lambda user: user.is_superuser)
 def comment(request, appointment_id):
+    """
+    Permet à l'administrateur d'ajouter un commentaire à un rendez-vous spécifique.
+    """
     if request.method == 'POST':
         appointment = get_object_or_404(Appointment, id=appointment_id)
         comment = request.POST.get('comment')
