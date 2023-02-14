@@ -18,26 +18,18 @@
           <thead>
             <tr>
               <th>Date et heure</th>
-              <th>Commentaire</th>
             </tr>
           </thead>
           <tbody>
             {% for rdv in rdvs %}
             <tr>
               <td>{{ rdv.date|date:"d/m/Y H:i" }}</td>
-              <td>
-                <form method="post" action="{% url 'add_comment' rdv.id %}">
-                  {% csrf_token %}
-                  <textarea name="comment" placeholder="Ajouter un commentaire"></textarea>
-                  <input type="submit" value="Enregistrer">
-                </form>
-              </td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
         {% else %}
-        <p>{{ user.first_name }} {{ user.last_name }}Vous n'avez pas de rendez-vous </p>
+        <p>Vous n'avez pas de rendez-vous </p>
         {% endif %}
 
     </div>

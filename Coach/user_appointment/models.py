@@ -14,3 +14,9 @@ class Appointment(models.Model):
         }
     duree = models.IntegerField(default=10)
     comment = models.TextField(null=False, blank=False, default='')
+    comment_author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='appointment_comments')
+    
+class Comment(models.Model):
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()

@@ -25,6 +25,13 @@
             <td>{{ appointment.user.first_name }} {{ appointment.user.last_name }}</td>
             <td>{{ appointment.user.email }}</td>
             <td>{{ appointment.date }}</td>
+            <td class="admincom">
+                {% if appointment.comment %}
+                    {{ appointment.comment }}
+                {% else %}
+                    Pas de commentaire
+                {% endif %}
+            </td>
             <td>
                 <form method="post" action="{% url 'add_comment' appointment.id %}">
                 {% csrf_token %}

@@ -69,6 +69,14 @@ def prendre_rdv(request):
 @user_passes_test(lambda user: user.is_superuser)
 def rdv_admin(request):
     appointments = Appointment.objects.all()
+    if request.method == 'POST':
+        appointment_id = request.POST.get('appointment_id')
+        appointment = get_object_or_404(Appointment, id=appointment_id)
+        comment = request.POST.get('comment')
+        appointment.comment = comment
+        appointment.comment_author = request.user
+        appointment.save()
+        return redirect('rdv_admin')
     return render(request, 'rdv_admin.html', {'appointments': appointments})
 
 def mes_rdv(request):
@@ -76,6 +84,7 @@ def mes_rdv(request):
     return render(request, 'mes_rdv.html', {'rdvs': rdvs})
 
 
+@user_passes_test(lambda user: user.is_superuser)
 def comment(request, appointment_id):
     if request.method == 'POST':
         appointment = get_object_or_404(Appointment, id=appointment_id)
@@ -84,12 +93,13 @@ def comment(request, appointment_id):
         appointment.comment_author = request.user
         appointment.save()
         message = "Le commentaire a été ajouté avec succès."
+        return redirect('rdv_admin')
     else:
         message = "Une erreur s'est produite lors de l'ajout du commentaire."
     
-    appointments = Appointment.objects.all()
+    rdvs = Appointment.objects.filter(user=request.user)
     context = {
-        'appointments': appointments,
+        'rdvs': rdvs,
         'message': message,
     }
     return render(request, 'rdv_admin.html', context)

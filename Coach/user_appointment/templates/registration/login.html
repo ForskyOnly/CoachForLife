@@ -10,9 +10,9 @@
 <body>
   {% block login %}
   <div class="container">
-      <h2>L'ouverture des chakras passe par plusieurs méthodes :
+      <h2>"L'ouverture des chakras passe par plusieurs méthodes :
       la relaxation, la méditation, des exercices de yoga...
-      Mais avant tout :<span> La Connexion </span></h2>
+      Mais avant tout <span> La Connexion"</span></h2>
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
