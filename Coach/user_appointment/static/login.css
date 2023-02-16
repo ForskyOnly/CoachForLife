@@ -64,10 +64,14 @@ form {
     background-color: #ffb300;
     color: #fff;
     font-weight: 600;
+    font-size: 16px;
     border-radius: 5px;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    margin-top: 20px;
+    width: 300px;
+
   }
 
   form button[type="submit"]:hover{
