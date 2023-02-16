@@ -11,7 +11,7 @@ Ce projet a été réalisé lors de la formation Tech IA chez Simplon HDF. L'obj
 ### Contexte du projet
 
 
-Un coach en développement personnel souhaite un système de prise de rendez-vous automatique en ligne. Aidez-le à l'aide de vos connaissances sur python et Django.
+Un coach en développement personnel souhaite un système de prise de rendez-vous automatique en ligne. Il faut donc crée un site grace nos connaissances en HTML, CSS, PYTHON et DJANGO.
 
 ​
 
