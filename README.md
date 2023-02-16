@@ -5,7 +5,7 @@ Version 1.0
 
 ## Description du Projet
 
-Ce projet a été réalisé par [@Rubic](https://github.com/ForskyOnly) lors de la formation Tech IA chez Simplon HDF. L'objectif faire un site  en utilisant Django.
+Ce projet a été réalisé lors de la formation Tech IA chez Simplon HDF. L'objectif faire un site  en utilisant Django.
 
 
 ### Contexte du projet
