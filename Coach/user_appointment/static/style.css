@@ -85,19 +85,62 @@ figure img{
 }
 
 
-/* HOME */
-
-
-/* SE CONNECTER*/
-
-
-/* PRENDRE RENDEZ-VOUS*/
-
-
-/* RENDEZ-VOUS ADMIN */
-
-
-/* RENDEZ-VOUS UTILISATEUR */
-
-
-/* INSCRIPTION  */
+/* FOOTER */
+footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;    
+    background-color: #ffb300;
+    align-items: center;
+    padding: 20px;
+    gap: 40px;
+    height: 100px;
+  }
+  footer ul{
+    gap:20px;
+  }
+  
+  .activities-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .activities-list li {
+    font-size: 16px;
+    color: #1a4150;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  
+  .activities-list li a {
+    color: #1a4150;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .activities-list li a:hover {
+    text-decoration: underline;
+  }
+  
+  .hours {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .hours-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+  }
+  
+  .hours-list li {
+    margin: 5px 0;
+    font-size: 16;
+    color: #1a4150;
+    font-weight: bold;
+  }
+  

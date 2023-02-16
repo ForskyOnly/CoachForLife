@@ -26,7 +26,7 @@ body {
 
   h2{
     font-size: 28px;
-    font-weight: boldS;
+    font-weight: bold;
   }
 
 
@@ -75,8 +75,7 @@ body {
   #competences h2{
     text-align: center;
     padding-top: 80px;
-    
-   
+       
   }
   
   #competences ul {
@@ -113,6 +112,7 @@ body {
     color:white;
     background-color: #ffb300;
     font-size: 34px;
+    font-weight: bold;
   }
 
   #meditation h2, #yoga h2 , #art h2{
